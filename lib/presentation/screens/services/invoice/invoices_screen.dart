@@ -1,5 +1,6 @@
 import 'package:finzefy_app/presentation/screens/bottomNav/home_screen.dart';
 import 'package:finzefy_app/presentation/widgets/custom_text.dart';
+import 'package:finzefy_app/presentation/widgets/invoice_click_sheet.dart';
 import 'package:finzefy_app/utils/app_colors.dart';
 import 'package:finzefy_app/utils/reusables.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,11 @@ class InvoicesHistoryScreen extends StatelessWidget {
       floatingActionButton: CircleAvatar(
         backgroundColor: AppColors.kPrimaryColor,
         radius: 25.r,
-        child: Icon(Icons.add, color: AppColors.kWhite, size: 30.sp,),
+        child: Icon(
+          Icons.add,
+          color: AppColors.kWhite,
+          size: 30.sp,
+        ),
       ),
       body: SafeArea(
           child: Column(
@@ -44,19 +49,37 @@ class InvoicesHistoryScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: AppColors.kGreyAE.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(10.sp)),
-                    child: CustomText(text: filters[index], color: AppColors.kGreyAE,),
+                    child: CustomText(
+                      text: filters[index],
+                      color: AppColors.kGreyAE,
+                    ),
                   );
                 },
-                separatorBuilder: (context, index) => Width(w: 10),
+                separatorBuilder: (context, index) => const Width(w: 10),
                 itemCount: filters.length),
           ),
-
-          Expanded(child: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-                padding: EdgeInsets.symmetric( vertical: 20.h),
-            itemBuilder: (context, index){
-            return ServiceTile();
-          },  itemCount: 20))
+          Expanded(
+              child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  padding: EdgeInsets.symmetric(vertical: 20.h),
+                  itemBuilder: (context, index) {
+                    return ServiceTile(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(25.0)),
+                          ),
+                          builder: (BuildContext context) {
+                            return const IncoiceClickOptionSheet();
+                          },
+                        );
+                      },
+                    );
+                  },
+                  itemCount: 20))
         ],
       )),
     );

@@ -1,4 +1,5 @@
 import 'package:finzefy_app/presentation/widgets/custom_text.dart';
+import 'package:finzefy_app/presentation/widgets/invoice_click_sheet.dart';
 import 'package:finzefy_app/utils/app_colors.dart';
 import 'package:finzefy_app/utils/reusables.dart';
 import 'package:flutter/material.dart';
@@ -298,7 +299,22 @@ class HomeScreen extends StatelessWidget {
           SliverList.builder(
               itemCount: 10,
               itemBuilder: (context, index) {
-                return const ServiceTile();
+                return  ServiceTile(
+                  onTap: () {
+                     showModalBottomSheet(
+                                        context: context,
+                                        isScrollControlled: true,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+                                        ),
+                                        builder: (BuildContext context) {
+                                          return IncoiceClickOptionSheet(
+                                           
+                                          );
+                                        },
+                                      );
+                  },
+                );
               })
         ],
       ),
@@ -315,104 +331,108 @@ class HomeScreen extends StatelessWidget {
           ),
           */
 class ServiceTile extends StatelessWidget {
-  const ServiceTile({super.key});
+  const ServiceTile({super.key, required this.onTap});
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.sizeOf(context).width;
-    return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: 10.w,
-      ),
-      padding: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h,),
-      color: AppColors.kWhite,
+    return InkWell(
+      onTap: onTap,
       child: Container(
-        // margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 4.w),
-        decoration: BoxDecoration(
-            color: AppColors.kGreyF9,
-            borderRadius: BorderRadius.circular(10.r)),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 20.r,
-              backgroundColor: AppColors.kLightYellow,
-              child: SvgPicture.asset('assets/svgs/file-icon.svg'),
-            ),
-            const Width(w: 10),
-            SizedBox(
-              width: w * 0.35,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const CustomText(
-                    text: 'Olamide Ismail',
-                    color: AppColors.kBlack4B,
-                    fontWeight: FontWeight.w600,
-                    textOverflow: TextOverflow.ellipsis,
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 6.h),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-                    //alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: AppColors.kWhite,
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: const CustomText(
-                      text: 'FZ: 00001INV',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12,
-                      color: AppColors.kBlack28,
-                    ),
-                  ),
-                  const CustomText(
-                      text: 'Created: 12/6/2024',
-                      textOverflow: TextOverflow.ellipsis)
-                ],
+        margin: EdgeInsets.symmetric(
+          horizontal: 10.w,
+        ),
+        padding: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h,),
+        color: AppColors.kWhite,
+        child: Container(
+          // margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 4.w),
+          decoration: BoxDecoration(
+              color: AppColors.kGreyF9,
+              borderRadius: BorderRadius.circular(10.r)),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 20.r,
+                backgroundColor: AppColors.kLightYellow,
+                child: SvgPicture.asset('assets/svgs/file-icon.svg'),
               ),
-            ),
-            const Width(w: 10),
-            SizedBox(
-              width: w * 0.25,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const CustomText(
-                    text: '₦120,000.00',
-                    color: AppColors.kBlack4B,
-                    fontWeight: FontWeight.w600,
-                    textOverflow: TextOverflow.ellipsis,
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 6.h),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-                    //alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: AppColors.kLightYellow,
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: const CustomText(
-                      text: 'Pending',
-                      maxLines: 1,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12,
-                      color: AppColors.kYellow,
+              const Width(w: 10),
+              SizedBox(
+                width: w * 0.35,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const CustomText(
+                      text: 'Olamide Ismail',
+                      color: AppColors.kBlack4B,
+                      fontWeight: FontWeight.w600,
+                      textOverflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  const CustomText(
-                      text: 'Created: 12/6/2024',
-                      textOverflow: TextOverflow.ellipsis)
-                ],
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 6.h),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+                      //alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: AppColors.kWhite,
+                          borderRadius: BorderRadius.circular(10.r)),
+                      child: const CustomText(
+                        text: 'FZ: 00001INV',
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12,
+                        color: AppColors.kBlack28,
+                      ),
+                    ),
+                    const CustomText(
+                        text: 'Created: 12/6/2024',
+                        textOverflow: TextOverflow.ellipsis)
+                  ],
+                ),
               ),
-            ),
-            const Expanded(child: SizedBox()),
-            const Icon(
-              Icons.more_vert,
-              size: 30,
-              color: AppColors.kGrey400,
-            )
-          ],
+              const Width(w: 10),
+              SizedBox(
+                width: w * 0.25,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    const CustomText(
+                      text: '₦120,000.00',
+                      color: AppColors.kBlack4B,
+                      fontWeight: FontWeight.w600,
+                      textOverflow: TextOverflow.ellipsis,
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 6.h),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+                      //alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: AppColors.kLightYellow,
+                          borderRadius: BorderRadius.circular(10.r)),
+                      child: const CustomText(
+                        text: 'Pending',
+                        maxLines: 1,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                        color: AppColors.kYellow,
+                      ),
+                    ),
+                    const CustomText(
+                        text: 'Created: 12/6/2024',
+                        textOverflow: TextOverflow.ellipsis)
+                  ],
+                ),
+              ),
+              const Expanded(child: SizedBox()),
+              const Icon(
+                Icons.more_vert,
+                size: 30,
+                color: AppColors.kGrey400,
+              )
+            ],
+          ),
         ),
       ),
     );

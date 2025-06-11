@@ -11,6 +11,7 @@ class InvoicesHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int currentIndex= 0;
     List<String> filters = [
       'All',
       'Paid',
@@ -47,11 +48,11 @@ class InvoicesHistoryScreen extends StatelessWidget {
                         EdgeInsets.symmetric(vertical: 5.h, horizontal: 15.w),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        color: AppColors.kGreyAE.withOpacity(0.3),
+                        color: currentIndex==index?AppColors.kPrimaryColor: AppColors.kGreyAE.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(10.sp)),
                     child: CustomText(
                       text: filters[index],
-                      color: AppColors.kGreyAE,
+                      color: currentIndex==index?AppColors.kWhite: AppColors.kGreyAE,
                     ),
                   );
                 },

@@ -28,28 +28,31 @@ class CustomButton extends StatelessWidget {
   final bool isSubmit;
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: isSubmit ? () {} : onPressed,
-      style: ElevatedButton.styleFrom(
-          backgroundColor:
-              isSubmit ? Colors.grey : (bgColor ?? AppColors.kPrimaryColor),
-          fixedSize:
-              Size(width ?? MediaQuery.sizeOf(context).width, height ?? 50.h),
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(color: borderColor ?? AppColors.kPrimaryColor),
-            borderRadius: BorderRadius.circular(25.sp),
-          )),
-      child: isSubmit
-          ? const CircularProgressIndicator(
-              color: Colors.black,
-            )
-          : CustomText(
-              text: text,
-              color: textColor ?? AppColors.kWhite,
-              fontWeight: FontWeight.w500,
-              fontSize: textFontSize ?? 16.sp,
-            ),
+    return Padding(
+      padding: EdgeInsets.only(top: 10.h),
+      child: ElevatedButton(
+        onPressed: isSubmit ? () {} : onPressed,
+        style: ElevatedButton.styleFrom(
+            backgroundColor:
+                isSubmit ? Colors.grey : (bgColor ?? AppColors.kPrimaryColor),
+            fixedSize:
+                Size(width ?? MediaQuery.sizeOf(context).width, height ?? 50.h),
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(color: borderColor ?? AppColors.kPrimaryColor),
+              borderRadius: BorderRadius.circular(25.sp),
+            )),
+        child: isSubmit
+            ? const CircularProgressIndicator(
+                color: Colors.black,
+              )
+            : CustomText(
+                text: text,
+                color: textColor ?? AppColors.kWhite,
+                fontWeight: FontWeight.w500,
+                fontSize: textFontSize ?? 16.sp,
+              ),
+      ),
     );
   }
 }

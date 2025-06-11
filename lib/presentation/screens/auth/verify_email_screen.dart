@@ -1,7 +1,9 @@
+import 'package:finzefy_app/config/route.dart';
 import 'package:finzefy_app/presentation/widgets/custom_button.dart';
 import 'package:finzefy_app/presentation/widgets/custom_pinput.dart';
 import 'package:finzefy_app/presentation/widgets/custom_text.dart';
 import 'package:finzefy_app/utils/app_colors.dart';
+import 'package:finzefy_app/utils/nav.dart';
 import 'package:finzefy_app/utils/reusables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +14,9 @@ class VerifyEmailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
@@ -31,7 +35,9 @@ class VerifyEmailScreen extends StatelessWidget {
             const Height(h: 20),
             CustomPinput(lenght: 6, onChanged: (value) {}),
             const Height(h: 20),
-            CustomButton(onPressed: () {}, text: 'Continue'),
+            CustomButton(onPressed: () {
+              pushNamed(AppRoute.businessInfo);
+            }, text: 'Continue'),
             const Height(h: 20),
             const Center(
               child: InkWell(

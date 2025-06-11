@@ -1,8 +1,11 @@
+import 'package:finzefy_app/config/route.dart';
 import 'package:finzefy_app/presentation/widgets/custom_button.dart';
 import 'package:finzefy_app/presentation/widgets/custom_text.dart';
 import 'package:finzefy_app/presentation/widgets/custom_textfield.dart';
 import 'package:finzefy_app/utils/app_colors.dart';
+import 'package:finzefy_app/utils/nav.dart';
 import 'package:finzefy_app/utils/reusables.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -42,7 +45,9 @@ class SignUpScreen extends StatelessWidget {
               hintText: 'Phone number',
             ),
             const Height(h: 30),
-            CustomButton(onPressed: () {}, text: 'Create Account'),
+            CustomButton(onPressed: () {
+              pushNamed(AppRoute.verifyEmailOtp);
+            }, text: 'Create Account'),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 30.h),
               child: Row(
@@ -78,7 +83,10 @@ class SignUpScreen extends StatelessWidget {
                                     color: AppColors.kPrimaryColor,
                                     fontSize: 14.sp, fontWeight: FontWeight.w500
                                   ),
-                                  
+                                   recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          pushNamed(AppRoute.login);
+                        }
                                     ),
                     ]
                   ),
@@ -92,5 +100,3 @@ class SignUpScreen extends StatelessWidget {
   }
 }
 
-class TapGestureRecognizer {
-}

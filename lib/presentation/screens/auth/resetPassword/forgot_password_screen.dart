@@ -1,7 +1,9 @@
+import 'package:finzefy_app/config/route.dart';
 import 'package:finzefy_app/presentation/widgets/custom_button.dart';
 import 'package:finzefy_app/presentation/widgets/custom_text.dart';
 import 'package:finzefy_app/presentation/widgets/custom_textfield.dart';
 import 'package:finzefy_app/utils/app_colors.dart';
+import 'package:finzefy_app/utils/nav.dart';
 import 'package:finzefy_app/utils/reusables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,7 +35,9 @@ class ForgotPasswordScreen extends StatelessWidget {
             ),
            
             Height(h: 30),
-            CustomButton(onPressed: () {}, text: 'Reset Password'),
+            CustomButton(onPressed: () {
+              pushNamed(AppRoute.forgotPasswordOtp);
+            }, text: 'Reset Password'),
             
                  
           

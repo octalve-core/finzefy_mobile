@@ -1,6 +1,8 @@
+import 'package:finzefy_app/config/route.dart';
 import 'package:finzefy_app/presentation/widgets/custom_text.dart';
 import 'package:finzefy_app/presentation/widgets/invoice_click_sheet.dart';
 import 'package:finzefy_app/utils/app_colors.dart';
+import 'package:finzefy_app/utils/nav.dart';
 import 'package:finzefy_app/utils/reusables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -152,18 +154,30 @@ class HomeScreen extends StatelessWidget {
                         ),
                         Height(h: 20.h),
                         Wrap(
-                            spacing: 18.w,
+                            spacing: MediaQuery.sizeOf(context).width *0.08,
                             runSpacing: 10.h,
-                            alignment: WrapAlignment.spaceBetween,
-                            children: const [
+                           // alignment: WrapAlignment.spaceBetween,
+                            children: [
                               QuickCreateWidget(
-                                  imgName: 'invoice', name: 'Invoice'),
+                                imgName: 'invoice',
+                                name: 'Invoice',
+                                onTap: () => pushNamed(AppRoute.createInvoice),
+                              ),
                               QuickCreateWidget(
-                                  imgName: 'users', name: 'Customer'),
+                                imgName: 'users',
+                                name: 'Customer',
+                                onTap: () => pushNamed(AppRoute.addCustomer),
+                              ),
                               QuickCreateWidget(
-                                  imgName: 'invoice', name: 'Expenses'),
+                                imgName: 'invoice',
+                                name: 'Expenses',
+                                onTap: () => pushNamed(AppRoute.createInvoice),
+                              ),
                               QuickCreateWidget(
-                                  imgName: 'invoice', name: 'Quaotation'),
+                                imgName: 'invoice',
+                                name: 'Quaotation',
+                                onTap: () => pushNamed(AppRoute.createInvoice),
+                              ),
                             ])
                       ],
                     ),
@@ -190,6 +204,7 @@ class HomeScreen extends StatelessWidget {
                         Container(
                           color: AppColors.kWhite,
                           child: ExpansionTile(
+                            shape: Border.all(color: Colors.transparent),
                             tilePadding: EdgeInsets.zero,
                             showTrailingIcon: false,
                             title: Padding(
@@ -227,7 +242,9 @@ class HomeScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            children: [const CustomText(text: 'text')],
+                            children: [
+                             // const CustomText(text: 'text')
+                              ],
                           ),
                         ),
                         const Row(
@@ -297,22 +314,21 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           SliverList.builder(
-              itemCount: 10,
+              itemCount: 5,
               itemBuilder: (context, index) {
-                return  ServiceTile(
+                return ServiceTile(
                   onTap: () {
-                     showModalBottomSheet(
-                                        context: context,
-                                        isScrollControlled: true,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
-                                        ),
-                                        builder: (BuildContext context) {
-                                          return IncoiceClickOptionSheet(
-                                           
-                                          );
-                                        },
-                                      );
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(25.0)),
+                      ),
+                      builder: (BuildContext context) {
+                        return IncoiceClickOptionSheet();
+                      },
+                    );
                   },
                 );
               })
@@ -343,7 +359,11 @@ class ServiceTile extends StatelessWidget {
         margin: EdgeInsets.symmetric(
           horizontal: 10.w,
         ),
-        padding: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h,),
+        padding: EdgeInsets.only(
+          left: 10.w,
+          right: 10.w,
+          bottom: 10.h,
+        ),
         color: AppColors.kWhite,
         child: Container(
           // margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
@@ -477,35 +497,42 @@ class SummaryWidget extends StatelessWidget {
 
 class QuickCreateWidget extends StatelessWidget {
   const QuickCreateWidget(
-      {super.key, required this.imgName, required this.name});
+      {super.key,
+      required this.imgName,
+      required this.name,
+      required this.onTap});
   final String imgName;
   final String name;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CircleAvatar(
-          radius: 25.r,
-          backgroundColor: AppColors.kLightPrimaryColor,
-          child: SvgPicture.asset(
-            'assets/svgs/$imgName.svg',
-            height: 20.h,
-            width: 20.w,
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 25.r,
+            backgroundColor: AppColors.kLightPrimaryColor,
+            child: SvgPicture.asset(
+              'assets/svgs/$imgName.svg',
+              height: 20.h,
+              width: 20.w,
+            ),
           ),
-        ),
-        const Height(h: 10),
-        const CustomText(
-          text: 'New',
-          fontWeight: FontWeight.w400,
-          fontSize: 12,
-        ),
-        CustomText(
-          text: name,
-          fontWeight: FontWeight.w400,
-          fontSize: 12,
-        ),
-      ],
+          const Height(h: 10),
+          const CustomText(
+            text: 'New',
+            fontWeight: FontWeight.w400,
+            fontSize: 12,
+          ),
+          CustomText(
+            text: name,
+            fontWeight: FontWeight.w400,
+            fontSize: 12,
+          ),
+        ],
+      ),
     );
   }
 }

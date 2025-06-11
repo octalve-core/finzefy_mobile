@@ -1,8 +1,11 @@
+import 'package:finzefy_app/config/route.dart';
 import 'package:finzefy_app/presentation/widgets/custom_button.dart';
 import 'package:finzefy_app/presentation/widgets/custom_text.dart';
 import 'package:finzefy_app/presentation/widgets/custom_textfield.dart';
 import 'package:finzefy_app/utils/app_colors.dart';
+import 'package:finzefy_app/utils/nav.dart';
 import 'package:finzefy_app/utils/reusables.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,7 +15,9 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
@@ -34,15 +39,18 @@ class LoginScreen extends StatelessWidget {
             const CustomTextField(
               hintText: 'Password',
             ),
-           const Align(
-              alignment: Alignment.centerRight,
-              child: CustomText(
-                text: 'Forgot Password?',
-                color: AppColors.kPrimaryColor,
+           InkWell(
+            onTap: () => pushNamed(AppRoute.forgotPassword),
+             child: const Align(
+                alignment: Alignment.centerRight,
+                child: CustomText(
+                  text: 'Forgot Password?',
+                  color: AppColors.kPrimaryColor,
+                ),
               ),
-            ),
+           ),
             Height(h: 30),
-            CustomButton(onPressed: () {}, text: 'Login'),
+            CustomButton(onPressed: ()=> removeAllAndPushScreen(AppRoute.dashboard), text: 'Login'),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 30.h),
               child: Row(
@@ -81,6 +89,8 @@ class LoginScreen extends StatelessWidget {
                         color: AppColors.kPrimaryColor,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500),
+                        recognizer: TapGestureRecognizer()
+                        ..onTap =()=> pushNamed(AppRoute.signUp),
                   ),
                 ]),
               ),

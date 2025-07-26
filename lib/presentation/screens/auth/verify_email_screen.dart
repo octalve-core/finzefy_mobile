@@ -1,4 +1,4 @@
-import 'package:finzefy_app/config/route.dart';
+import 'package:finzefy_app/core/route.dart';
 import 'package:finzefy_app/presentation/widgets/custom_button.dart';
 import 'package:finzefy_app/presentation/widgets/custom_pinput.dart';
 import 'package:finzefy_app/presentation/widgets/custom_text.dart';
@@ -13,6 +13,7 @@ class VerifyEmailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final email = ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold(
       appBar: AppBar(
         
@@ -27,8 +28,8 @@ class VerifyEmailScreen extends StatelessWidget {
               fontSize: 26,
               fontWeight: FontWeight.bold,
             ),
-            const CustomText(
-              text: 'Check your email for OTP code',
+             CustomText(
+              text: 'Check your email $email for OTP code',
               color: AppColors.kGrey7F,
               fontSize: 16,
             ),

@@ -1,4 +1,4 @@
-import 'package:finzefy_app/config/route.dart';
+import 'package:finzefy_app/core/route.dart';
 import 'package:finzefy_app/presentation/widgets/custom_button.dart';
 import 'package:finzefy_app/presentation/widgets/custom_pinput.dart';
 import 'package:finzefy_app/presentation/widgets/custom_text.dart';

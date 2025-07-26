@@ -1,4 +1,4 @@
-import 'package:finzefy_app/config/route.dart';
+import 'package:finzefy_app/core/route.dart';
 import 'package:finzefy_app/presentation/widgets/custom_button.dart';
 import 'package:finzefy_app/presentation/widgets/custom_text.dart';
 import 'package:finzefy_app/utils/app_colors.dart';
@@ -19,7 +19,7 @@ class OnboardingScreen extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-                color: Colors.red,
+                color: Colors.black,
                 child: Image.asset(
                   'assets/images/onboarding.png',
                   width: w,

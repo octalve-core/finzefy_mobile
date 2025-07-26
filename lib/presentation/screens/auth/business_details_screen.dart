@@ -1,19 +1,36 @@
-import 'package:finzefy_app/config/route.dart';
+import 'package:finzefy_app/core/route.dart';
+import 'package:finzefy_app/data/controllers/business_controller.dart';
+import 'package:finzefy_app/data/models/business/update_business_info_payload.dart';
+import 'package:finzefy_app/data/models/general/response.dart';
 import 'package:finzefy_app/presentation/widgets/custom_button.dart';
 import 'package:finzefy_app/presentation/widgets/custom_text.dart';
 import 'package:finzefy_app/presentation/widgets/custom_textfield.dart';
 import 'package:finzefy_app/utils/app_colors.dart';
+import 'package:finzefy_app/utils/app_string.dart';
+import 'package:finzefy_app/utils/error_dialog%20copy.dart';
 import 'package:finzefy_app/utils/nav.dart';
 import 'package:finzefy_app/utils/reusables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class BusinessDetailsScreen extends StatelessWidget {
-  const BusinessDetailsScreen({super.key});
+   const BusinessDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final businessNameController = TextEditingController();
+    final businessAddressController = TextEditingController();
+    final businessPhoneNumberController = TextEditingController();
+    final businessDescriptionController = TextEditingController();
+    final rcNumberController = TextEditingController();
+    final taxIdController = TextEditingController();
+    final instagramProfileController = TextEditingController();
+    final facebookProfileController = TextEditingController();
+    final twitterProfileController = TextEditingController();
+    final websiteLinkController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -21,7 +38,7 @@ class BusinessDetailsScreen extends StatelessWidget {
             onTap: () => pushNamed(AppRoute.setCurrency),
             child: Padding(
               padding: EdgeInsets.only(right: 20.w),
-              child: CustomText(text: 'Skip', color: AppColors.kPrimaryColor,),
+              child: const CustomText(text: 'Skip', color: AppColors.kPrimaryColor,),
             ),
           )
         ],
@@ -31,52 +48,71 @@ class BusinessDetailsScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
         child: Column(
           children: [
-            const UploadWidget(name: 'Logo'),
-            const CustomTextField(
+             UploadWidget(name: 'Logo'),
+             CustomTextField(
               hintText: 'Enter your business name',
               title: 'Businesss Name',
+              controller: businessNameController,
             ),
-            const CustomTextField(
+             CustomTextField(
               hintText: 'Enter your business address',
               title: 'Businesss Address',
+              controller: businessAddressController,
             ),
-            const CustomTextField(
+             CustomTextField(
               hintText: 'Enter your business phone number',
               title: 'Businesss Phone Number',
+              controller: businessPhoneNumberController,
             ),
-            const CustomTextField(
+             CustomTextField(
               hintText: 'Enter your business description',
               title: 'Businesss Description',
+              controller: businessDescriptionController,
             ),
-            const CustomTextField(
+             CustomTextField(
               hintText: 'Enter your business RC Number',
               title: 'RC Number (Optional)',
+              controller: rcNumberController,
             ),
-            const CustomTextField(
+             CustomTextField(
               hintText: 'Enter your business Tax ID',
               title: 'Tax ID (Optional)',
+              controller: taxIdController,
             ),
-            const CustomTextField(
+             CustomTextField(
               hintText: 'Enter your business Instagram Profile name',
               title: 'Instagram Profile name (Optional)',
+              controller: instagramProfileController,
             ),
-            const CustomTextField(
+             CustomTextField(
               hintText: 'Enter your business Facebook Profile name',
               title: 'Facebook Profile name (Optional)',
+              controller: facebookProfileController,
             ),
-            const CustomTextField(
+             CustomTextField(
               hintText: 'Enter your business X (twitter) Profile name',
               title: 'X (twitter) Profile name (Optional)',
+              controller: twitterProfileController,
             ),
-            const CustomTextField(
+             CustomTextField(
               hintText: 'Enter your business Website link',
               title: 'Website link',
+              controller: websiteLinkController,
             ),
-            const Height(h: 20),
-            const UploadWidget(name: 'Signature'),
-            const Height(h: 30),
+             Height(h: 20),
+             UploadWidget(name: 'Signature'),
+             Height(h: 30),
             CustomButton(onPressed: (){
-              pushNamed(AppRoute.setCurrency);
+              final payload = UpdateBusinessInfoPayload(businessName: businessNameController.text, businessAddress: businessAddressController.text, businessDescription: businessDescriptionController.text, rcNumber: rcNumberController.text, taxId: taxIdController.text, digitalSignature: '');
+              context.read<BusinessController>().updateBusinessInfo(payload).then((ResponseModel response){
+                popScreen();
+                if(response.isSuccess){
+                  pushNamed(AppRoute.setCurrency);
+                }else{
+                  showInfoDialog(response.message ?? AppString.somethimgWentWrong);
+                }
+              });
+              
             }, text: 'Save')
 
           ],
@@ -88,7 +124,7 @@ class BusinessDetailsScreen extends StatelessWidget {
 
 
 class UploadWidget extends StatelessWidget {
-  const UploadWidget({super.key, required this.name});
+   UploadWidget({super.key, required this.name});
   final String name;
 
   @override
@@ -109,7 +145,7 @@ class UploadWidget extends StatelessWidget {
                       color: AppColors.kPrimaryColor,
                     ),
                   ),
-                  const CustomText(
+                   CustomText(
                     text: 'SVG, PNG, JPG or GIF (max. 800x400px)',
                     fontSize: 12,
                     color: AppColors.kGrey47,

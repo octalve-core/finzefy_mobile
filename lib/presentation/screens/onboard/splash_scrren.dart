@@ -1,4 +1,6 @@
+import 'package:finzefy_app/core/route.dart';
 import 'package:finzefy_app/utils/app_colors.dart';
+import 'package:finzefy_app/utils/nav.dart';
 import 'package:flutter/material.dart';
 
 class SplashScrren extends StatefulWidget {
@@ -14,7 +16,7 @@ class _SplashScrrenState extends State<SplashScrren> with SingleTickerProviderSt
 
  void nextScreen() async{
   Future.delayed(const Duration(seconds: 2)).then((_){
-
+    popAndPushScreen(AppRoute.dashboard);
   });
  }
   @override
@@ -23,7 +25,7 @@ class _SplashScrrenState extends State<SplashScrren> with SingleTickerProviderSt
     super.initState();
    controller  = AnimationController(vsync: this, duration:const Duration(seconds: 1));
    controller.forward();
-
+   nextScreen();
   }
   @override
   void dispose() {

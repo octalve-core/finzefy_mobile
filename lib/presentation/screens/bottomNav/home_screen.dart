@@ -1,4 +1,4 @@
-import 'package:finzefy_app/config/route.dart';
+import 'package:finzefy_app/core/route.dart';
 import 'package:finzefy_app/presentation/widgets/custom_text.dart';
 import 'package:finzefy_app/presentation/widgets/invoice_click_sheet.dart';
 import 'package:finzefy_app/utils/app_colors.dart';
@@ -154,9 +154,9 @@ class HomeScreen extends StatelessWidget {
                         ),
                         Height(h: 20.h),
                         Wrap(
-                            spacing: MediaQuery.sizeOf(context).width *0.08,
+                            spacing: MediaQuery.sizeOf(context).width *0.07,
                             runSpacing: 10.h,
-                           // alignment: WrapAlignment.spaceBetween,
+                            alignment: WrapAlignment.spaceBetween,
                             children: [
                               QuickCreateWidget(
                                 imgName: 'invoice',
